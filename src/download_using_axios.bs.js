@@ -2,19 +2,19 @@
 'use strict';
 
 var Fs = require("fs");
+var Axios = require("axios");
 
-((require('isomorphic-fetch')));
+var cfg = {
+  responseType: "arraybuffer"
+};
 
-var Response = /* module */[];
-
-fetch("https://picsum.photos/100/100/?random").then((function (prim) {
-          return prim.buffer();
-        })).then((function (buffer) {
+Axios.get("https://picsum.photos/100/100/?random", cfg).then((function (res) {
+        var buffer = res.data;
         console.log("Size in bytes: " + String(buffer.length));
         Fs.writeFileSync("random.jpg", buffer);
         console.log("Wrote file to random.jpg");
         return Promise.resolve(/* () */0);
       }));
 
-exports.Response = Response;
+exports.cfg = cfg;
 /*  Not a pure module */

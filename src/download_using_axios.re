@@ -1,16 +1,11 @@
-[%bs.raw {|require('isomorphic-fetch')|}];
-
-module Response = {
-  [@bs.send]
-  external buffer: Fetch.Response.t => Js.Promise.t(Node.Buffer.t) = "";
-};
+let cfg = Axios.makeConfig(~responseType="arraybuffer", ());
 
 let () =
   Js.Promise.(
-    Fetch.fetch("https://picsum.photos/100/100/?random")
-    |> then_(Response.buffer)
-    |> then_(buffer => {
+    Axios.getc("https://picsum.photos/100/100/?random", cfg)
+    |> then_(res => {
          open Util;
+         let buffer: Node.Buffer.t = res##data;
          Js.log("Size in bytes: " ++ buffer->Buffer.length->string_of_int);
          Fs.writeBufferToFileSync("random.jpg", buffer);
          Js.log("Wrote file to random.jpg");
