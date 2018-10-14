@@ -18,7 +18,5 @@ if (process.argv.length <= 2) {
   let jsFile = 'src/' + process.argv[2] + '.bs.js'
 
   console.log(`Running ${jsFile}\n${border}\n`)
-  let output = childProcess.execSync('node ' + jsFile)
-  console.log(output.toString('utf8'))
-  console.log(`${border}\n`)
+  let child = childProcess.spawn('node', [jsFile], {stdio: 'inherit'})
 }

@@ -1,1 +1,1 @@
-Js.log("Hello, BuckleScript and Reason!");
+Js.log({js|你好世界！|js});

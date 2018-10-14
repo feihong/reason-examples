@@ -1,5 +1,9 @@
 # Feihong's Reason Examples
 
+## Prerequisites
+
+    yarn global add nodemon npm-run-all
+
 ## Commands
 
 Install dependencies
@@ -24,4 +28,8 @@ List all programs
 
 Build and run a program
 
-    yarn go Demo
+    yarn go demo
+
+Automatically build and run a server program
+
+    yarn dev server
