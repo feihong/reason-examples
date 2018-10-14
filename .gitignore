@@ -28,4 +28,7 @@ lib/bs
 .bsb.lock
 
 /node_modules
+
+# Outputs
 random.jpg
+output.gz
