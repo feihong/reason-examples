@@ -1,2 +1,3 @@
-- download file, unzip, and process
+- download file from CC-CEDict, unzip, and process
 - sqlite
+- scrape Chinese grammar wiki
