@@ -18,6 +18,7 @@ if (process.argv.length <= 2) {
   let jsFile = 'src/' + process.argv[2] + '.bs.js'
 
   console.log(`Running ${jsFile}\n${border}\n`)
-  eval(fs.readFileSync(jsFile, 'utf8'))
-  console.log(`\n${border}\n`)
+  let output = childProcess.execSync('node ' + jsFile)
+  console.log(output.toString('utf8'))
+  console.log(`${border}\n`)
 }
