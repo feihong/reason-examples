@@ -5,11 +5,14 @@ var Node_fs = require("bs-platform/lib/js/node_fs.js");
 
 var Fs = /* module */[/* Watch */Node_fs.Watch];
 
+var Readline = /* module */[];
+
 var $$Buffer = /* module */[];
 
 var Zlib = /* module */[];
 
 exports.Fs = Fs;
+exports.Readline = Readline;
 exports.$$Buffer = $$Buffer;
 exports.Zlib = Zlib;
 /* No side effect */

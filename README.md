@@ -33,3 +33,9 @@ Build and run a program
 Automatically build and run a server program
 
     yarn dev server
+
+## Links
+
+- [BuckleScript Node API](https://bucklescript.github.io/bucklescript/api/Node.html)
+- [Node fs docs](https://nodejs.org/api/fs.html)
+- [TypeScript definitions for Node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts)

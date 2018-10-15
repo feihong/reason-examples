@@ -1,23 +1,36 @@
 module Fs = {
   include Node.Fs;
 
-  [@bs.val] [@bs.module "fs"]
+  [@bs.module "fs"]
   external writeBufferToFileSync: (string, Node.Buffer.t) => unit =
     "writeFileSync";
 
-  [@bs.val] [@bs.module "fs"]
+  [@bs.module "fs"]
   external readBufferFromFileSync: string => Node.Buffer.t = "readFileSync";
+
+  type readStream;
+
+  [@bs.module "fs"] external createReadStream: string => readStream = "";
+};
+
+module Readline = {
+  type interface;
+  type readable;
+
+  type options = Js.t({.});
+
+  [@bs.obj] external makeOptions: (~input: readable) => options = "";
+  [@bs.module "readline"] external createInterface: options => interface = "";
 };
 
 module Buffer = {
   include Node.Buffer;
+
   [@bs.get] external length: Node.Buffer.t => int = "";
 };
 
 module Zlib = {
-  [@bs.val] [@bs.module "zlib"]
-  external gzipSync: Node.Buffer.t => Node.Buffer.t = "";
+  [@bs.module "zlib"] external gzipSync: Node.Buffer.t => Node.Buffer.t = "";
 
-  [@bs.val] [@bs.module "zlib"]
-  external gunzipSync: Node.Buffer.t => Node.Buffer.t = "";
+  [@bs.module "zlib"] external gunzipSync: Node.Buffer.t => Node.Buffer.t = "";
 };
