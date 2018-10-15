@@ -1,3 +1,6 @@
+type readStream;
+type readable;
+
 module Fs = {
   include Node.Fs;
 
@@ -8,14 +11,14 @@ module Fs = {
   [@bs.module "fs"]
   external readBufferFromFileSync: string => Node.Buffer.t = "readFileSync";
 
-  type readStream;
-
   [@bs.module "fs"] external createReadStream: string => readStream = "";
 };
 
 module Readline = {
   type interface;
   type readable;
+
+  external readStreamToReadable: readStream => readable = "%identity";
 
   type options = Js.t({.});
 
