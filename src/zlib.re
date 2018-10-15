@@ -1,9 +1,6 @@
 open Belt;
 open Util;
 
-[@bs.val] [@bs.module "zlib"]
-external gzipSync: Node.Buffer.t => Node.Buffer.t = "";
-
 let str =
   Array.make(100, {js|你好世界！|js})
   ->Array.mapWithIndex((i, v) => {
@@ -15,7 +12,7 @@ let str =
 let buffer = Node.Buffer.fromString(str);
 Js.log2("Original size:", buffer->Buffer.length->string_of_int);
 
-let buffer2 = gzipSync(buffer);
+let buffer2 = Zlib.gzipSync(buffer);
 Js.log2("Compressed size:", buffer2->Buffer.length->string_of_int);
 
 Fs.writeBufferToFileSync("output.gz", buffer2);

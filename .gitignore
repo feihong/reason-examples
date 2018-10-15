@@ -30,5 +30,5 @@ lib/bs
 /node_modules
 
 # Outputs
-random.jpg
-output.gz
+*.jpg
+*.gz
