@@ -4,6 +4,8 @@
 var Fs = require("fs");
 var Zlib = require("zlib");
 var Axios = require("axios");
+var Stream = require("stream");
+var Interop = require("./helpers/Interop.bs.js");
 
 var url = "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz";
 
@@ -11,8 +13,14 @@ var filename = "cedict.txt.gz";
 
 if (Fs.existsSync(filename)) {
   console.log("Reading cedict.txt.gz");
-  var str = Zlib.gunzipSync(Fs.readFileSync(filename)).toString();
-  console.log(str);
+  var readStream = Fs.createReadStream(filename);
+  var gunzip = Zlib.createGunzip();
+  Stream.pipeline(readStream, gunzip);
+  var $$interface = Interop.Readline[/* createInterface */0](gunzip, undefined, /* () */0);
+  $$interface.on("line", (function (line) {
+          console.log(line);
+          return /* () */0;
+        }));
 } else {
   Axios.get(url, {
           responseType: "arraybuffer"

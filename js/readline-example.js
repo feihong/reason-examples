@@ -1,3 +1,6 @@
+/**
+ * Print out a compressed text file's contents, line by line.
+ */
 const { pipeline, Duplex, Transform } = require('stream')
 const fs = require('fs')
 const readline = require('readline')

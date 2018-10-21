@@ -1,3 +1,6 @@
+/**
+ * Create a compressed text file with 100 lines of text.
+ */
 const zlib = require('zlib')
 const fs = require('fs')
 

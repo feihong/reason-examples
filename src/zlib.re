@@ -1,5 +1,5 @@
 open Belt;
-open Util;
+open Interop;
 
 let str =
   Array.make(100, {js|你好世界！|js})
