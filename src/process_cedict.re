@@ -15,7 +15,7 @@ if (Fs.existsSync(filename)) {
   Js.log("Reading " ++ filename);
   let readStream = Fs.createReadStream(filename);
   let gunzip = Zlib.createGunzip();
-  Stream.pipeline(readStream, gunzip);
+  Stream.pipeline([|readStream, gunzip|]);
   let interface = Readline.createInterface(~input=gunzip, ());
 
   let re = [%bs.re {|/(.*) (.*) \[(.*)\] \/(.*)\//|}];

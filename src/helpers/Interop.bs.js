@@ -7,9 +7,9 @@ var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
 
 var $$Buffer = /* module */[];
 
-var Fs = /* module */[/* Watch */Node_fs.Watch];
-
 var Stream = /* module */[];
+
+var Fs = /* module */[/* Watch */Node_fs.Watch];
 
 var Zlib = /* module */[];
 
@@ -26,8 +26,8 @@ function createInterface(input, output, _) {
 var Readline$1 = /* module */[/* createInterface */createInterface];
 
 exports.$$Buffer = $$Buffer;
-exports.Fs = Fs;
 exports.Stream = Stream;
+exports.Fs = Fs;
 exports.Zlib = Zlib;
 exports.Readline = Readline$1;
 /* readline Not a pure module */

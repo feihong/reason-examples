@@ -1,9 +1,13 @@
-type stream;
-
 module Buffer = {
   include Node.Buffer;
 
   [@bs.get] external length: t => int = "";
+};
+
+module Stream = {
+  type t;
+
+  [@bs.module "stream"] [@bs.splice] external pipeline: array(t) => unit = "";
 };
 
 module Fs = {
@@ -15,11 +19,7 @@ module Fs = {
   [@bs.module "fs"]
   external readBufferFromFileSync: string => Buffer.t = "readFileSync";
 
-  [@bs.module "fs"] external createReadStream: string => stream = "";
-};
-
-module Stream = {
-  [@bs.module "stream"] external pipeline: (stream, stream) => unit = "";
+  [@bs.module "fs"] external createReadStream: string => Stream.t = "";
 };
 
 module Zlib = {
@@ -27,7 +27,7 @@ module Zlib = {
 
   [@bs.module "zlib"] external gunzipSync: Buffer.t => Buffer.t = "";
 
-  [@bs.module "zlib"] external createGunzip: unit => stream = "";
+  [@bs.module "zlib"] external createGunzip: unit => Stream.t = "";
 };
 
 module Readline = {
@@ -35,15 +35,15 @@ module Readline = {
 
   [@bs.deriving abstract]
   type options = {
-    input: stream,
+    input: Stream.t,
     [@bs.optional]
-    output: stream,
+    output: Stream.t,
   };
 
   [@bs.module "readline"]
   external createInterface_: options => interface = "createInterface";
 
-  let createInterface = (~input: stream, ~output: option(stream)=?, ()) =>
+  let createInterface = (~input: Stream.t, ~output: option(Stream.t)=?, ()) =>
     createInterface_(options(~input, ~output?, ()));
 
   [@bs.send]
