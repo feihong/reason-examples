@@ -49,4 +49,8 @@ module Readline = {
   [@bs.send]
   external onLine: (interface, [@bs.as "line"] _, string => unit) => unit =
     "on";
+
+  [@bs.send]
+  external onClose: (interface, [@bs.as "close"] _, unit => unit) => unit =
+    "on";
 };

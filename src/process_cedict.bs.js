@@ -6,6 +6,9 @@ var Zlib = require("zlib");
 var Axios = require("axios");
 var Stream = require("stream");
 var Interop = require("./helpers/Interop.bs.js");
+var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
+var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
+var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
 
 var url = "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz";
 
@@ -17,8 +20,23 @@ if (Fs.existsSync(filename)) {
   var gunzip = Zlib.createGunzip();
   Stream.pipeline(readStream, gunzip);
   var $$interface = Interop.Readline[/* createInterface */0](gunzip, undefined, /* () */0);
+  var re = (/(.*) (.*) \[(.*)\] \/(.*)\//);
   $$interface.on("line", (function (line) {
-          console.log(line);
+          Belt_Option.map(Js_primitive.null_to_opt(re.exec(line)), (function (result) {
+                  var arr = Belt_Array.map(result, (function (x) {
+                          return Belt_Option.getWithDefault((x == null) ? undefined : Js_primitive.some(x), "");
+                        }));
+                  var entry_000 = /* simp */Belt_Array.getExn(arr, 1);
+                  var entry_001 = /* trad */Belt_Array.getExn(arr, 2);
+                  var entry_002 = /* pinyin */Belt_Array.getExn(arr, 3);
+                  var entry_003 = /* gloss */Belt_Array.getExn(arr, 4);
+                  console.log(entry_000, entry_003);
+                  return /* () */0;
+                }));
+          return /* () */0;
+        }));
+  $$interface.on("close", (function () {
+          console.log("No more lines");
           return /* () */0;
         }));
 } else {
@@ -29,7 +47,6 @@ if (Fs.existsSync(filename)) {
           Fs.writeFileSync(filename, buffer);
           return Promise.resolve(/* () */0);
         }));
-  console.log("Downloaded cedict.txt.gz");
 }
 
 exports.url = url;

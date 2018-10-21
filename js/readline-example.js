@@ -14,3 +14,6 @@ let interface = readline.createInterface({input: gunzip})
 interface.on('line', line => {
   console.log(line)
 })
+interface.on('close', () => {
+  console.log('No more lines');
+})
