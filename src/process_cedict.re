@@ -20,27 +20,25 @@ if (Fs.existsSync(filename)) {
 
   let re = [%bs.re {|/(.*) (.*) \[(.*)\] \/(.*)\//|}];
 
-  interface->Readline.onLine(line => {
-    let entry =
-      Js.Re.exec(line, re)
-      ->Option.map(result => {
-          let arr =
-            result
-            ->Js.Re.captures
-            ->Array.map(x =>
-                x->Js.Nullable.toOption->Option.getWithDefault("")
-              );
-          let entry = {
-            simp: arr->Array.getExn(1),
-            trad: arr->Array.getExn(2),
-            pinyin: arr->Array.getExn(3),
-            gloss: arr->Array.getExn(4),
-          };
-          Js.log2(entry.simp, entry.gloss);
-        })
-      ->ignore;
-    ();
-  });
+  interface->Readline.onLine(line =>
+    Js.Re.exec(line, re)
+    ->Option.map(result => {
+        let arr =
+          result
+          ->Js.Re.captures
+          ->Array.map(x =>
+              x->Js.Nullable.toOption->Option.getWithDefault("")
+            );
+        let entry = {
+          simp: arr->Array.getExn(1),
+          trad: arr->Array.getExn(2),
+          pinyin: arr->Array.getExn(3),
+          gloss: arr->Array.getExn(4),
+        };
+        Js.log2(entry.simp, entry.gloss);
+      })
+    ->ignore
+  );
 
   interface->Readline.onClose(_ => Js.log("No more lines"));
 } else {
