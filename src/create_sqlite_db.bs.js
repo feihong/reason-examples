@@ -9,6 +9,14 @@ var result = db.prepare("select ? + ? as value").get(11, 4);
 
 console.log(result.value);
 
+var result2 = db.prepare("select $a + $b as value").get({
+      a: 44,
+      b: 22
+    });
+
+console.log(result2.value);
+
 exports.db = db;
 exports.result = result;
+exports.result2 = result2;
 /* db Not a pure module */

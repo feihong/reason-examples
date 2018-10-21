@@ -3,6 +3,8 @@ module Statement = {
 
   [@bs.send] [@bs.splice] external get: (t, array('a)) => Js.t({..}) = "";
 
+  [@bs.send] external getNamed: (t, Js.t({..})) => Js.t({..}) = "get";
+
   [@bs.send] [@bs.splice] external run: (t, array('a)) => Js.Json.t = "";
 };
 
