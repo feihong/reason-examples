@@ -1,6 +1,5 @@
-- download binary file using bs-fetch
-- download binary file using bs-axios
 - download file from CC-CEDict, unzip, and process
 - sqlite
-- server that uses nunjucks templates
-- scrape Chinese grammar wiki
+- serve JSON
+- serve static content
+- use bs-most

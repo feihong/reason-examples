@@ -5,18 +5,27 @@ var Sqlite = require("./helpers/Sqlite.bs.js");
 
 var db = Sqlite.makeDatabase("test.db", true, undefined, undefined, undefined, /* () */0);
 
-var result = db.prepare("select ? + ? as value").get(11, 4);
+var result = db.prepare("select 1 + 2 as value").get();
 
 console.log(result.value);
 
-var result2 = db.prepare("select $a + $b as value").get({
+var result2 = db.prepare("select $a + $b - $c as value").get({
       a: 44,
-      b: 22
+      b: 22,
+      c: 11
     });
 
 console.log(result2.value);
 
+var result3 = db.prepare("select :x  * :y as value").get({
+      x: 5,
+      y: 6
+    });
+
+console.log(result3.value);
+
 exports.db = db;
 exports.result = result;
 exports.result2 = result2;
+exports.result3 = result3;
 /* db Not a pure module */
