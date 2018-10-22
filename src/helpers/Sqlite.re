@@ -1,11 +1,18 @@
+/**
+ * https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md
+ */
 module Statement = {
   type t;
 
-  [@bs.send] [@bs.splice] external get: (t, array('a)) => Js.t({..}) = "";
+  [@bs.send] external get: (t, unit) => 'a = "";
 
-  [@bs.send] external getNamed: (t, Js.t({..})) => Js.t({..}) = "get";
+  [@bs.send] external getWithArgs: (t, 'a) => 'b = "get";
 
-  [@bs.send] [@bs.splice] external run: (t, array('a)) => Js.Json.t = "";
+  [@bs.send] external all: (t, unit) => 'a = "";
+
+  [@bs.send] external run: (t, unit) => 'a = "";
+
+  [@bs.send] external runWithArgs: (t, 'a) => 'b = "run";
 };
 
 module Database = {
@@ -27,6 +34,12 @@ module Database = {
   external makeDatabase: (string, options) => t = "better-sqlite3";
 
   [@bs.send] external prepare: (t, string) => Statement.t = "";
+
+  [@bs.send] external transaction: (t, 'a => unit, 'a) => unit = "";
+
+  [@bs.send] external exec: (t, string) => t = "";
+
+  [@bs.send] external close: (t, unit) => t = "";
 };
 
 let makeDatabase =
