@@ -12,18 +12,14 @@ db.exec(createSql);
 
 var insert = db.prepare("INSERT INTO players VALUES ($id, $username, $level)");
 
-function insertMany(param) {
-  db.transaction((function (rows) {
-          console.log(Belt_List.map(rows, (function (row) {
-                      return insert.run({
-                                  id: row[0],
-                                  username: row[1],
-                                  level: row[2]
-                                });
-                    })));
-          return /* () */0;
-        }), param);
-  return /* () */0;
+function insertMany(rows) {
+  return Belt_List.map(rows, (function (row) {
+                return insert.run({
+                            id: row[0],
+                            username: row[1],
+                            level: row[2]
+                          });
+              }));
 }
 
 console.log(insertMany(/* :: */[
@@ -49,7 +45,7 @@ console.log(insertMany(/* :: */[
           ]
         ]));
 
-console.log(db.prepare("SELECT COUNT(*) as count FROM players").get());
+console.log(db.prepare("SELECT SUM(level) as totalLevel FROM players").get());
 
 db.close();
 

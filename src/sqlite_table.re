@@ -17,19 +17,29 @@ db->Database.exec(createSql);
 let insert =
   db->Database.prepare("INSERT INTO players VALUES ($id, $username, $level)");
 
-let insertMany =
-  db->Database.transaction(rows =>
-    rows
-    ->List.map(row => {
-        let (id, username, level) = row;
-        insert->Statement.runWithArgs({
-          "id": id,
-          "username": username,
-          "level": level,
-        });
-      })
-    ->Js.log
-  );
+/* let insertMany =
+   db->Database.transaction(rows =>
+     rows
+     ->List.map(row => {
+         let (id, username, level) = row;
+         insert->Statement.runWithArgs({
+           "id": id,
+           "username": username,
+           "level": level,
+         });
+       })
+     ->Js.log
+   ); */
+
+let insertMany = rows =>
+  rows->List.map(row => {
+    let (id, username, level) = row;
+    insert->Statement.runWithArgs({
+      "id": id,
+      "username": username,
+      "level": level,
+    });
+  });
 
 insertMany([
   (1001, "Cowman", 45),
@@ -40,7 +50,7 @@ insertMany([
 
 let result =
   db
-  ->Database.prepare("SELECT COUNT(*) as count FROM players")
+  ->Database.prepare("SELECT SUM(level) as totalLevel FROM players")
   ->Statement.get()
   ->Js.log;
 
