@@ -5,11 +5,12 @@ var Prelude = require("./helpers/Prelude.bs.js");
 
 console.log("I'm sleepy...");
 
-Prelude.JsPromise[/* sleep */0](1000).then((function (param) {
-          console.log("woke up after 1000");
-          return Prelude.JsPromise[/* sleep */0](1200);
+Prelude.JsPromise[/* sleepAndLog */1](1000, "woke up after 1000").then((function (param) {
+            return Prelude.JsPromise[/* sleepAndLog */1](1200, "woke up after 1200");
+          })).then((function (param) {
+          return Prelude.JsPromise[/* sleepAndLog */1](1500, "woke up after 1500");
         })).then((function (param) {
-        return Promise.resolve((console.log("woke up after 1200"), /* () */0));
+        return Promise.resolve((console.log("done!"), /* () */0));
       }));
 
 var P = 0;

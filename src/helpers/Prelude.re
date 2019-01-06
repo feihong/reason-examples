@@ -12,4 +12,7 @@ module JsPromise = {
       let value = (); /* must use variable here because of how refmt works */
       Js.Global.setTimeout(() => resolve(. value), ms)->ignore;
     });
+
+  let sleepAndLog = (ms, message) =>
+    sleep(ms)->then_(_ => Js.log(message)->resolve);
 };

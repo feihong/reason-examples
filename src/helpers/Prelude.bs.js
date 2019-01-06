@@ -12,7 +12,16 @@ function sleep(ms) {
               }));
 }
 
-var JsPromise = /* module */[/* sleep */sleep];
+function sleepAndLog(ms, message) {
+  return sleep(ms).then((function (param) {
+                return Promise.resolve((console.log(message), /* () */0));
+              }));
+}
+
+var JsPromise = /* module */[
+  /* sleep */sleep,
+  /* sleepAndLog */sleepAndLog
+];
 
 var Id = Belt.Id;
 
