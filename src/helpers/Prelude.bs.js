@@ -2,6 +2,7 @@
 'use strict';
 
 var Belt = require("bs-platform/lib/js/belt.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 
 function sleep(ms) {
   return new Promise((function (resolve, _reject) {
@@ -18,9 +19,21 @@ function sleepAndLog(ms, message) {
               }));
 }
 
+function reduce(lst, acc, fn) {
+  if (lst) {
+    var rest = lst[1];
+    return Curry._2(fn, acc, lst[0]).then((function (newAcc) {
+                  return reduce(rest, newAcc, fn);
+                }));
+  } else {
+    return Promise.resolve(acc);
+  }
+}
+
 var JsPromise = /* module */[
   /* sleep */sleep,
-  /* sleepAndLog */sleepAndLog
+  /* sleepAndLog */sleepAndLog,
+  /* reduce */reduce
 ];
 
 var Id = Belt.Id;

@@ -3,17 +3,47 @@
 
 var Prelude = require("./helpers/Prelude.bs.js");
 
-console.log("I'm sleepy...");
+function simple(param) {
+  console.log("I'm sleepy...");
+  return Prelude.JsPromise[/* sleepAndLog */1](1000, "woke up after 1000").then((function (param) {
+                    return Prelude.JsPromise[/* sleepAndLog */1](1200, "woke up after 1200");
+                  })).then((function (param) {
+                  return Prelude.JsPromise[/* sleepAndLog */1](1500, "woke up after 1500");
+                })).then((function (param) {
+                return Promise.resolve((console.log("simple is done!"), /* () */0));
+              }));
+}
 
-Prelude.JsPromise[/* sleepAndLog */1](1000, "woke up after 1000").then((function (param) {
-            return Prelude.JsPromise[/* sleepAndLog */1](1200, "woke up after 1200");
-          })).then((function (param) {
-          return Prelude.JsPromise[/* sleepAndLog */1](1500, "woke up after 1500");
-        })).then((function (param) {
-        return Promise.resolve((console.log("done!"), /* () */0));
-      }));
+function reduce(param) {
+  return Prelude.JsPromise[/* reduce */2](/* :: */[
+                100,
+                /* :: */[
+                  1000,
+                  /* :: */[
+                    1200,
+                    /* :: */[
+                      1500,
+                      /* :: */[
+                        600,
+                        /* [] */0
+                      ]
+                    ]
+                  ]
+                ]
+              ], 0, (function (acc, n) {
+                  return Prelude.JsPromise[/* sleepAndLog */1](n, "woke up after " + (String(n) + "")).then((function (param) {
+                                return Promise.resolve(acc + n | 0);
+                              }));
+                })).then((function (total) {
+                return Promise.resolve((console.log("Slept a total of " + (String(total) + " milliseconds.")), /* () */0));
+              }));
+}
+
+reduce(/* () */0);
 
 var P = 0;
 
 exports.P = P;
+exports.simple = simple;
+exports.reduce = reduce;
 /*  Not a pure module */
