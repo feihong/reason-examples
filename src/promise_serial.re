@@ -19,5 +19,14 @@ let reduce = () =>
       Js.log({j|Slept a total of $total milliseconds.|j})->P.resolve
     );
 
+let downloads = () => {
+  let fakeDownload = url => P.sleepAndLog(888, {j|Downloaded $url|j});
+
+  ["foo.com", "bar.net", "baz.us", "cooldog.us"]
+  ->P.reduce((), (_acc, url) => fakeDownload(url))
+  ->P.then_(_ => Js.log("Downloads finished.")->P.resolve);
+};
+
 /* simple(); */
-reduce();
+/* reduce(); */
+downloads();

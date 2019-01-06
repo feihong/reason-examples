@@ -39,11 +39,33 @@ function reduce(param) {
               }));
 }
 
-reduce(/* () */0);
+function downloads(param) {
+  return Prelude.JsPromise[/* reduce */2](/* :: */[
+                "foo.com",
+                /* :: */[
+                  "bar.net",
+                  /* :: */[
+                    "baz.us",
+                    /* :: */[
+                      "cooldog.us",
+                      /* [] */0
+                    ]
+                  ]
+                ]
+              ], /* () */0, (function (_acc, url) {
+                  var url$1 = url;
+                  return Prelude.JsPromise[/* sleepAndLog */1](888, "Downloaded " + (String(url$1) + ""));
+                })).then((function (param) {
+                return Promise.resolve((console.log("Downloads finished."), /* () */0));
+              }));
+}
+
+downloads(/* () */0);
 
 var P = 0;
 
 exports.P = P;
 exports.simple = simple;
 exports.reduce = reduce;
+exports.downloads = downloads;
 /*  Not a pure module */
