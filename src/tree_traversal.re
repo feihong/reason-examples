@@ -1,5 +1,4 @@
 /* https://stackoverflow.com/questions/9323036/tail-recursive-function-to-find-depth-of-a-tree-in-ocaml/9328844#9328844 */
-open Belt;
 
 type tree =
   | Leaf(int)

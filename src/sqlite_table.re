@@ -1,4 +1,3 @@
-open Belt;
 open Sqlite;
 
 let db = makeDatabase("test.db", ~timeout=1000, ());

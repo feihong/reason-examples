@@ -15,5 +15,8 @@
     "bs-fetch",
     "bs-express"
   ],
-  "refmt": 3
+  "refmt": 3,
+  "bsc-flags": [
+    "-open Belt"
+  ]
 }
