@@ -3,6 +3,22 @@
 
 var Block = require("bs-platform/lib/js/block.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
+var Belt_MutableQueue = require("bs-platform/lib/js/belt_MutableQueue.js");
+
+function ntcTraverse(tree) {
+  if (tree.tag) {
+    var lst = Belt_List.concat(ntcTraverse(tree[1]), ntcTraverse(tree[2]));
+    return /* :: */[
+            tree[0],
+            lst
+          ];
+  } else {
+    return /* :: */[
+            tree[0],
+            /* [] */0
+          ];
+  }
+}
 
 function traverse(_acc, _stack) {
   while(true) {
@@ -42,6 +58,39 @@ function traverse(_acc, _stack) {
   };
 }
 
+function qTraverse(tree) {
+  var acc = Belt_MutableQueue.make(/* () */0);
+  var aux = function (_stack) {
+    while(true) {
+      var stack = _stack;
+      if (stack) {
+        var match = stack[0];
+        Belt_MutableQueue.add(acc, match[0]);
+        if (match.tag) {
+          _stack = /* :: */[
+            match[1],
+            /* :: */[
+              match[2],
+              stack[1]
+            ]
+          ];
+          continue ;
+        } else {
+          _stack = stack[1];
+          continue ;
+        }
+      } else {
+        return /* () */0;
+      }
+    };
+  };
+  aux(/* :: */[
+        tree,
+        /* [] */0
+      ]);
+  return Belt_MutableQueue.toArray(acc);
+}
+
 var myTree = /* Node */Block.__(1, [
     1,
     /* Node */Block.__(1, [
@@ -72,11 +121,17 @@ var myTree = /* Node */Block.__(1, [
       ])
   ]);
 
+console.log(Belt_List.toArray(ntcTraverse(myTree)));
+
 console.log(Belt_List.toArray(traverse(/* [] */0, /* :: */[
               myTree,
               /* [] */0
             ])));
 
+console.log(qTraverse(myTree));
+
+exports.ntcTraverse = ntcTraverse;
 exports.traverse = traverse;
+exports.qTraverse = qTraverse;
 exports.myTree = myTree;
 /*  Not a pure module */
