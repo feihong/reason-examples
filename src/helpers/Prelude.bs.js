@@ -19,11 +19,11 @@ function sleepAndLog(ms, message) {
               }));
 }
 
-function reduce(lst, acc, fn) {
+function reduce(lst, acc, reducer) {
   if (lst) {
     var rest = lst[1];
-    return Curry._2(fn, acc, lst[0]).then((function (newAcc) {
-                  return reduce(rest, newAcc, fn);
+    return Curry._2(reducer, acc, lst[0]).then((function (newAcc) {
+                  return reduce(rest, newAcc, reducer);
                 }));
   } else {
     return Promise.resolve(acc);

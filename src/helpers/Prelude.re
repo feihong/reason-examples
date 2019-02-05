@@ -17,10 +17,10 @@ module JsPromise = {
     sleep(ms)->then_(_ => Js.log(message)->resolve);
 
   /* Modeled after Bluebird's Promise.reduce */
-  let rec reduce = (lst, acc, fn) =>
+  let rec reduce = (lst, acc, reducer) =>
     switch (lst) {
     | [] => resolve(acc)
     | [head, ...rest] =>
-      fn(acc, head)->then_(newAcc => reduce(rest, newAcc, fn))
+      reducer(acc, head)->then_(newAcc => reduce(rest, newAcc, reducer))
     };
 };
