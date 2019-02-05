@@ -1,4 +1,7 @@
-include Belt;
+module Utils = {
+  /* log list of lists */
+  let logList = lst => lst->List.toArray->Array.map(List.toArray)->Js.log;
+};
 
 module JsPromise = {
   include Js.Promise;
